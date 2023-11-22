@@ -15,19 +15,31 @@ export class CategoryService {
 
   async create(createCategoryDto: CreateCategoryDto, currentUser: UserEntity):Promise<CategoryEntity> {
     const category = this.categoryRepository.create(createCategoryDto);
-    category.addedBy = currentUser
+    category.addedById = currentUser
     return await this.categoryRepository.save(category);
   }
 
-  async findAll() {
+  async findAll():Promise<CategoryEntity[]> {
     return await this.categoryRepository.find();
   }
 
-  async findOne(id: number) {
-    return this.categoryRepository.findOneBy({id});
+  async findOne(id: number):Promise<CategoryEntity> {
+    return this.categoryRepository.findOne(
+      {
+        where: {id: id},
+        relations: {'addedById': true},
+        select:{
+          addedById:{
+            id:true,
+            username:true,
+            email:true,
+          }
+        }
+      }
+    );
   }
 
-  async update(id: number, fields:Partial<UpdateCategoryDto>) {
+  async update(id: number, fields:Partial<UpdateCategoryDto>):Promise<CategoryEntity> {
     const category = await this.findOne(id)
     if(!category){
       throw new NotFoundException('Category not found')

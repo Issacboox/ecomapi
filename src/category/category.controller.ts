@@ -37,7 +37,7 @@ export class CategoryController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string):Promise<CategoryEntity> {
     return await this.categoryService.findOne(+id);
   }
 
@@ -47,7 +47,7 @@ export class CategoryController {
   async update(
     @Param('id') id: string,
     @Body() updateCategoryDto: UpdateCategoryDto,
-  ) {
+  ):Promise<CategoryEntity> {
     return await this.categoryService.update(+id, updateCategoryDto);
   }
 
