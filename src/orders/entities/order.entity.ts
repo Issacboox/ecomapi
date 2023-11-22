@@ -30,4 +30,7 @@ export class OrderEntity {
 
     @OneToMany(()=> OrderDetailEntity,(op) => op.order, {cascade:true})
     products:OrderDetailEntity[];
+
+    @ManyToOne(() => UserEntity,(user) => user.orders)
+    user:UserEntity;
 }
