@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, UseGuards } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -6,10 +6,6 @@ import { ProductEntity } from './entities/product.entity';
 import { Repository } from 'typeorm';
 import { CategoryService } from 'src/category/category.service';
 import { UserEntity } from 'src/users/entities/user.entity';
-import { Roles } from 'src/utils/common/user-role.enum';
-import { AuthorizeRoles } from 'src/utils/decorators/authorize-roles.decorator';
-import { AuthenticationGuard } from 'src/utils/guards/authentication.guard';
-import { AuthorizeGuard } from 'src/utils/guards/authorization.guard';
 
 @Injectable()
 export class ProductsService {
