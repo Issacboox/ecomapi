@@ -34,7 +34,7 @@ export class ProductsController {
   }
 
   @Get('all')
-  async findAll(): Promise<ProductEntity[]>{
+  async findAll(): Promise<ProductEntity[]> {
     return await this.productsService.findAll();
   }
 
@@ -43,9 +43,15 @@ export class ProductsController {
     return await this.productsService.findOne(+id);
   }
 
+  @AuthorizeRoles(Roles.ADMIN)
+  @UseGuards(AuthenticationGuard, AuthorizeGuard)
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
-    return await this.productsService.update(+id, updateProductDto);
+  async update(
+    @Param('id') id: string,
+    @Body() updateProductDto: UpdateProductDto,
+    @CurrentUser() currentUser: UserEntity,
+  ): Promise<ProductEntity> {
+    return await this.productsService.update(+id, updateProductDto, currentUser);
   }
 
   @Delete(':id')

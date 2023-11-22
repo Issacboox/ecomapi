@@ -24,7 +24,7 @@ export class CategoryService {
   }
 
   async findOne(id: number):Promise<CategoryEntity> {
-    return this.categoryRepository.findOne(
+    const category = await this.categoryRepository.findOne(
       {
         where: {id: id},
         relations: {'addedById': true},
@@ -37,6 +37,10 @@ export class CategoryService {
         }
       }
     );
+    if(!category){
+      throw new NotFoundException('Category not found');
+    }
+    return category;
   }
 
   async update(id: number, fields:Partial<UpdateCategoryDto>):Promise<CategoryEntity> {
