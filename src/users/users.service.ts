@@ -31,6 +31,7 @@ export class UsersService {
       .addSelect('users.password')
       .where('users.email=:email', { email: userSignIn.email })
       .getOne();
+      
     if (!userExists) {
       throw new BadRequestException('User not found');
     }

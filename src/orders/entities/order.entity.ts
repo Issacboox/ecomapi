@@ -12,7 +12,7 @@ export class OrderEntity {
     @CreateDateColumn()
     orderAt:Timestamp;
 
-    @Column({type:"enum",enum:OrderStatus,default:OrderStatus.ORDERED})
+    @Column({type:"enum",enum:OrderStatus,default:OrderStatus.PROCESSING})
     status:string;
     
     @Column({nullable:true})
@@ -21,7 +21,7 @@ export class OrderEntity {
     @Column({nullable:true})
     deliveredAt:Date;
 
-    @ManyToOne(()=>UserEntity,(user)=>user.orderUpdatedBy)
+    @ManyToOne(()=>UserEntity,(user)=>user.orderUpdateBy)
     updatedBy:UserEntity;
 
     @OneToOne(() => ShippingEntity,(ship) => ship.order,{cascade:true})

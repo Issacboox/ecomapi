@@ -46,7 +46,7 @@ export class UserEntity {
   reviews: ReviewEntity[];
 
   @OneToMany(() => OrderEntity, (ord) => ord.updatedBy)
-  orderUpdatedBy: OrderEntity[];
+  orderUpdateBy: OrderEntity[];
 
   @OneToMany(() => OrderEntity, (order) => order.user)
   orders: OrderEntity[];

@@ -9,7 +9,7 @@ export class OrderDetailEntity{
 
     @Column({type:"decimal",precision:10,scale:2,default:0})
     product_unit_price:number;
-
+    
     @Column()
     product_quantity:number;
 
